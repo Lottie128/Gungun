@@ -3,6 +3,9 @@ import './App.css'
 
 function App() {
   const [scrolled, setScrolled] = useState(false)
+  const [textIndex, setTextIndex] = useState(0)
+
+  const rotatingTexts = ['Gungun', 'the best', 'in code', 'creative', 'passionate']
 
   useEffect(() => {
     const handleScroll = () => {
@@ -10,6 +13,14 @@ function App() {
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTextIndex((prev) => (prev + 1) % rotatingTexts.length)
+    }, 3000) // Change text every 3 seconds
+
+    return () => clearInterval(interval)
   }, [])
 
   return (
@@ -37,41 +48,11 @@ function App() {
         <div className="hero-content">
           <div className="hero-badge">Welcome to my portfolio</div>
           <h1 className="hero-title">
-            Hi, I'm
-            <span className="construction-container">
-              <span className="gradient-text animated-name">Gungun</span>
-
-              {/* Construction Elements */}
-              <div className="construction-elements">
-                {/* Scaffold lines */}
-                <div className="scaffold scaffold-1"></div>
-                <div className="scaffold scaffold-2"></div>
-                <div className="scaffold scaffold-3"></div>
-
-                {/* Crane */}
-                <div className="crane">
-                  <div className="crane-arm"></div>
-                  <div className="crane-cable"></div>
-                  <div className="crane-hook">⚙️</div>
-                </div>
-
-                {/* Engineers (little workers) */}
-                <div className="engineer engineer-1">👷</div>
-                <div className="engineer engineer-2">👷</div>
-                <div className="engineer engineer-3">🔨</div>
-                <div className="engineer engineer-4">🔧</div>
-
-                {/* Construction particles */}
-                <div className="particle particle-1">✨</div>
-                <div className="particle particle-2">⚡</div>
-                <div className="particle particle-3">💫</div>
-                <div className="particle particle-4">✨</div>
-
-                {/* Building blocks */}
-                <div className="building-block block-1"></div>
-                <div className="building-block block-2"></div>
-                <div className="building-block block-3"></div>
-              </div>
+            Hi, I'm{' '}
+            <span className="rotating-text-container">
+              <span key={textIndex} className="gradient-text rotating-text">
+                {rotatingTexts[textIndex]}
+              </span>
             </span>
           </h1>
           <p className="hero-subtitle">
