@@ -4,6 +4,8 @@ import './App.css'
 function App() {
   const [scrolled, setScrolled] = useState(false)
   const [textIndex, setTextIndex] = useState(0)
+  const [displayText, setDisplayText] = useState('')
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const rotatingTexts = ['Gungun', 'the best', 'in code', 'creative', 'passionate']
 
@@ -15,13 +17,31 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Typewriter effect
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTextIndex((prev) => (prev + 1) % rotatingTexts.length)
-    }, 3000) // Change text every 3 seconds
+    const currentText = rotatingTexts[textIndex]
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        // Typing
+        if (displayText.length < currentText.length) {
+          setDisplayText(currentText.substring(0, displayText.length + 1))
+        } else {
+          // Pause at end before deleting
+          setTimeout(() => setIsDeleting(true), 2000)
+        }
+      } else {
+        // Deleting
+        if (displayText.length > 0) {
+          setDisplayText(currentText.substring(0, displayText.length - 1))
+        } else {
+          setIsDeleting(false)
+          setTextIndex((prev) => (prev + 1) % rotatingTexts.length)
+        }
+      }
+    }, isDeleting ? 50 : 100) // Faster when deleting
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearTimeout(timeout)
+  }, [displayText, isDeleting, textIndex])
 
   return (
     <div className="app">
@@ -49,10 +69,11 @@ function App() {
           <div className="hero-badge">Welcome to my portfolio</div>
           <h1 className="hero-title">
             Hi, I'm{' '}
-            <span className="rotating-text-container">
-              <span key={textIndex} className="gradient-text rotating-text">
-                {rotatingTexts[textIndex]}
+            <span className="typewriter-container">
+              <span className="gradient-text typewriter-text">
+                {displayText}
               </span>
+              <span className="cursor">|</span>
             </span>
           </h1>
           <p className="hero-subtitle">
