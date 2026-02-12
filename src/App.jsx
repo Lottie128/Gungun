@@ -37,7 +37,42 @@ function App() {
         <div className="hero-content">
           <div className="hero-badge">Welcome to my portfolio</div>
           <h1 className="hero-title">
-            Hi, I'm <span className="gradient-text">Gungun</span>
+            Hi, I'm
+            <span className="construction-container">
+              <span className="gradient-text animated-name">Gungun</span>
+
+              {/* Construction Elements */}
+              <div className="construction-elements">
+                {/* Scaffold lines */}
+                <div className="scaffold scaffold-1"></div>
+                <div className="scaffold scaffold-2"></div>
+                <div className="scaffold scaffold-3"></div>
+
+                {/* Crane */}
+                <div className="crane">
+                  <div className="crane-arm"></div>
+                  <div className="crane-cable"></div>
+                  <div className="crane-hook">⚙️</div>
+                </div>
+
+                {/* Engineers (little workers) */}
+                <div className="engineer engineer-1">👷</div>
+                <div className="engineer engineer-2">👷</div>
+                <div className="engineer engineer-3">🔨</div>
+                <div className="engineer engineer-4">🔧</div>
+
+                {/* Construction particles */}
+                <div className="particle particle-1">✨</div>
+                <div className="particle particle-2">⚡</div>
+                <div className="particle particle-3">💫</div>
+                <div className="particle particle-4">✨</div>
+
+                {/* Building blocks */}
+                <div className="building-block block-1"></div>
+                <div className="building-block block-2"></div>
+                <div className="building-block block-3"></div>
+              </div>
+            </span>
           </h1>
           <p className="hero-subtitle">
             Full Stack Developer & Creative Problem Solver
@@ -108,7 +143,6 @@ function App() {
               <p>React, Vue, TypeScript, Next.js, Tailwind CSS</p>
             </div>
             <div className="skill-card">
-              <div className="skill-icon">⚙️</div>
               <div className="skill-icon">⚙️</div>
               <h3>Backend Development</h3>
               <p>Node.js, Express, Python, PostgreSQL, MongoDB</p>
